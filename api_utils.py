@@ -1,7 +1,7 @@
+import logging
 from os.path import splitext
 from urllib.parse import unquote, urlsplit
 
-import logging
 import requests
 
 
