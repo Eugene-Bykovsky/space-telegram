@@ -6,11 +6,7 @@ from pathlib import Path
 import telegram
 from dotenv import load_dotenv
 
-
-def publish_photo(bot, chat_id, photo_path):
-    with open(photo_path, 'rb') as photo:
-        bot.send_photo(chat_id=chat_id, photo=photo)
-    print(f'Фото опубликовано: {photo_path}')
+from telegram_tools import publish_photo
 
 
 def get_random_photo(directory):

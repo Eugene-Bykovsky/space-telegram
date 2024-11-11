@@ -1,7 +1,8 @@
 import argparse
 from pathlib import Path
 
-from api_utils import download_image, get_response
+from downoload_tools import download_image
+from requests_tools import get_response
 
 
 def fetch_spacex_images(launch_id):

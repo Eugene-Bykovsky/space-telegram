@@ -8,6 +8,8 @@ import telegram
 from dotenv import load_dotenv
 from PIL import Image
 
+from telegram_tools import publish_photo
+
 
 def compress_image(image_path, max_size=20 * 1024 * 1024):
     with Image.open(image_path) as img:
@@ -15,11 +17,6 @@ def compress_image(image_path, max_size=20 * 1024 * 1024):
             img = img.convert('RGB')
             img.save(image_path, 'JPEG', quality=85)
     return image_path
-
-
-def send_photo_to_group(bot, chat_id, photo_path):
-    with open(photo_path, 'rb') as photo:
-        bot.send_photo(chat_id=chat_id, photo=photo)
 
 
 def send_random_photo_on_schedule(directory, bot, chat_id, delay_hours):
@@ -30,8 +27,7 @@ def send_random_photo_on_schedule(directory, bot, chat_id, delay_hours):
         for photo_path in photo_paths:
             if photo_path.is_file():
                 compressed_photo_path = compress_image(photo_path)
-                send_photo_to_group(bot, chat_id, compressed_photo_path)
-                print(f'Отправлено фото: {photo_path}')
+                publish_photo(bot, chat_id, compressed_photo_path)
                 time.sleep(delay_hours * 3600)
 
         random.shuffle(photo_paths)

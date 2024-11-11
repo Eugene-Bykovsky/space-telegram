@@ -1,14 +1,8 @@
 import logging
-from os.path import splitext
-from urllib.parse import unquote, urlsplit
 
 import requests
 
-
-def get_response(url, params=None):
-    response = requests.get(url, params)
-    response.raise_for_status()
-    return response
+from requests_tools import get_response
 
 
 def download_image(url, save_path, params=None):
@@ -27,9 +21,3 @@ def download_image(url, save_path, params=None):
     except requests.exceptions.RequestException as e:
         logging.error(f'Ошибка при загрузке изображения: {e}')
         raise
-
-
-def get_file_extension(url):
-    url = urlsplit(url)
-    _, extension = splitext(unquote(url.path))
-    return extension
